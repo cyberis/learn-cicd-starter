@@ -36,3 +36,8 @@ jobs:
 
       - name: Check Code Style
         run: test -z $(go fmt ./...)
+
+      - name: Check Code Linting
+        uses: dominikh/staticcheck-action@v1
+        with:
+          version: "latest"

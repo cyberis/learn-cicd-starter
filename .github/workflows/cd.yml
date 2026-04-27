@@ -20,6 +20,20 @@ jobs:
             
             - name: Build Application
               run: scripts/buildprod.sh
+            
+            - id: auth
+              uses: google-github-actions/auth@v2
+              with:
+                credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+            - name: Set up Cloud SDK
+              uses: google-github-actions/setup-gcloud@v2
+
+            - name: Use gcloud CLI
+              run: gcloud info
+
+            - name: Build and push Docker image to Google Container Registry
+              run: gcloud builds submit --tag us-central1-docker.pkg.dev/notely-494605/notely-ar-repo/notely:latest .
 
             - name: Deploy to Production
               run: echo "Deploying to production..." # Replace with actual deployment commands
